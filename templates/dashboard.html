@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>NuvemPay | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard-layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <span class="logo-square">N</span>
+            <h2>NuvemPay</h2>
+        </div>
+
+        <div class="sidebar-label">
+            MENU PRINCIPAL
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="nav-link active">
+                <i class="fa-solid fa-house"></i>
+                Visão geral
+            </a>
+
+            <a href="#transferencia" class="nav-link">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                Transferências
+            </a>
+
+            <a href="#extrato" class="nav-link">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Extrato
+            </a>
+
+            <a href="#minha-conta" class="nav-link">
+                <i class="fa-solid fa-user"></i>
+                Minha conta
+            </a>
+
+        </nav>
+
+        <!-- USUÁRIO E LOGOUT -->
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+                <div class="avatar">
+                    {{ usuario["nome"][0] }}
+                </div>
+
+                <div>
+                    <strong>{{ usuario["nome"] }}</strong>
+                    <small>Conta de demonstração</small>
+                </div>
+
+            </div>
+
+            <form
+                action="{{ url_for('logout') }}"
+                method="POST"
+            >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <button type="submit" class="logout-button">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Sair da conta
+                </button>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="dashboard-main">
+
+        <!-- CABEÇALHO -->
+        <header class="dashboard-header">
+
+            <div>
+                <span class="header-label">
+                    PAINEL FINANCEIRO
+                </span>
+
+                <h1>Visão geral</h1>
+
+                <p>
+                    Gerencie sua conta em um só lugar.
+                </p>
+            </div>
+
+            <div class="header-user">
+
+                <div class="header-avatar">
+                    {{ usuario["nome"][0] }}
+                </div>
+
+                <span>{{ usuario["nome"] }}</span>
+
+            </div>
+
+        </header>
+
+
+        <!-- BOAS-VINDAS -->
+        <section class="greeting">
+
+            <h2>
+                Olá, {{ usuario["nome"].split()[0] }}! 👋
+            </h2>
+
+            <p>
+                Bem-vindo ao seu painel financeiro.
+                Confira as informações da sua conta.
+            </p>
+
+        </section>
+
+
+        <!-- CARTÃO DE SALDO -->
+        <section class="balance-card">
+
+            <div class="balance-top">
+
+                <span>
+                    <i class="fa-solid fa-wallet"></i>
+                    Saldo disponível
+                </span>
+
+                <span class="balance-badge">
+                    CONTA DIGITAL
+                </span>
+
+            </div>
+
+            <h2 id="saldo">
+                {{ usuario["saldo_centavos"] | moeda }}
+            </h2>
+
+            <p>
+                Saldo fictício para demonstração acadêmica
+            </p>
+
+            <div class="balance-bottom">
+
+                <span>
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Ambiente de testes
+                </span>
+
+                <strong>NuvemPay</strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACESSO RÁPIDO -->
+        <section class="quick-actions" id="acoes">
+
+            <div class="section-heading">
+                <h3>Acesso rápido</h3>
+                <p>O que você deseja fazer hoje?</p>
+            </div>
+
+            <div class="actions-grid">
+
+                <!-- TRANSFERIR -->
+                <a href="#transferencia"
+                   class="action-card dashboard-action-link">
+
+                    <div class="action-icon blue">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+
+                    <h4>Transferir</h4>
+
+                    <p>
+                        Envie valores fictícios
+                        para outra conta.
+                    </p>
+
+                    <span>
+                        Fazer transferência →
+                    </span>
+
+                </a>
+
+                <!-- EXTRATO -->
+                <a href="#extrato"
+                   class="action-card dashboard-action-link">
+
+                    <div class="action-icon purple">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+
+                    <h4>Extrato</h4>
+
+                    <p>
+                        Consulte suas movimentações
+                        financeiras.
+                    </p>
+
+                    <span>
+                        Ver extrato →
+                    </span>
+
+                </a>
+
+                <!-- MINHA CONTA -->
+                <a href="#minha-conta"
+                   class="action-card dashboard-action-link">
+
+                    <div class="action-icon green">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+
+                    <h4>Minha conta</h4>
+
+                    <p>
+                        Visualize suas informações
+                        cadastrais.
+                    </p>
+
+                    <span>
+                        Ver informações →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOVA TRANSFERÊNCIA -->
+        <section class="transactions-panel"
+                 id="transferencia">
+
+            <div class="section-heading">
+                <h3>Nova transferência</h3>
+
+                <p>
+                    Envie valores fictícios para
+                    outro usuário NuvemPay.
+                </p>
+            </div>
+
+            <!-- MENSAGENS -->
+            {% with mensagens = get_flashed_messages() %}
+
+                {% if mensagens %}
+
+                    <div class="transfer-alert" role="status">
+                        {{ mensagens[0] }}
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- FORMULÁRIO -->
+            <form
+                action="{{ url_for('transferir') }}"
+                method="POST"
+                class="transfer-form"
+            >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <!-- DESTINATÁRIO -->
+                <div class="form-group">
+
+                    <label for="destinatario_id">
+                        Conta destinatária
+                    </label>
+
+                    <select
+                        id="destinatario_id"
+                        name="destinatario_id"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione um usuário
+                        </option>
+
+                        {% for destino in destinatarios %}
+
+                            <option value="{{ destino['id'] }}">
+                                {{ destino['nome'] }}
+                                — {{ destino['email'] }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- VALOR -->
+                <div class="form-group">
+
+                    <label for="valor">
+                        Valor da transferência (R$)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="valor"
+                        name="valor"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="Ex.: 200.00"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Confirmar transferência
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- HISTÓRICO DE TRANSAÇÕES -->
+        <section class="transactions-panel" id="extrato">
+
+            <div class="section-heading">
+
+                <h3>Últimas transações</h3>
+
+                <p>
+                    Acompanhe suas movimentações financeiras.
+                </p>
+
+            </div>
+
+
+            <div class="transaction-list">
+
+                {% if transacoes %}
+
+                    {% for transacao in transacoes %}
+
+                        {% set enviada =
+                            transacao["remetente_id"] == usuario["id"]
+                        %}
+
+                        <div class="transaction-item">
+
+                            <div class="transaction-info">
+
+                                <div class="transaction-icon">
+
+                                    {% if enviada %}
+
+                                        <i class="fa-solid fa-arrow-up"></i>
+
+                                    {% else %}
+
+                                        <i class="fa-solid fa-arrow-down"></i>
+
+                                    {% endif %}
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+
+                                        {% if enviada %}
+
+                                            Enviado para
+                                            {{ transacao["destinatario"] }}
+
+                                        {% else %}
+
+                                            Recebido de
+                                            {{ transacao["remetente"] }}
+
+                                        {% endif %}
+
+                                    </strong>
+
+                                    <small>
+                                        {{ transacao["data"] }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <strong class="{{ 'money-out' if enviada else 'money-in' }}">
+
+                                {{ "-" if enviada else "+" }}
+
+                                {{ transacao["valor_centavos"] | moeda }}
+
+                            </strong>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <!-- SEM TRANSAÇÕES -->
+                    <div class="empty-transactions">
+
+                        <div class="empty-icon">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+
+                        <h4>
+                            Nenhuma transação registrada
+                        </h4>
+
+                        <p>
+                            Suas transferências aparecerão
+                            aqui quando forem realizadas.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- MINHA CONTA -->
+        <section class="account-panel" id="minha-conta">
+
+            <div class="section-heading">
+
+                <h3>Minha conta</h3>
+
+                <p>
+                    Informações do seu perfil.
+                </p>
+
+            </div>
+
+            <div class="account-details">
+
+                <div>
+                    <span>Nome completo</span>
+                    <strong>{{ usuario["nome"] }}</strong>
+                </div>
+
+                <div>
+                    <span>E-mail cadastrado</span>
+                    <strong>{{ usuario["email"] }}</strong>
+                </div>
+
+                <div>
+                    <span>Tipo de conta</span>
+                    <strong>Conta fictícia</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RODAPÉ -->
+        <footer class="dashboard-footer">
+
+            © 2026 NuvemPay — Projeto Integrador
+            de Segurança Cibernética.
+
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

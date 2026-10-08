@@ -1,0 +1,875 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #2563eb;
+    --dark: #071b3b;
+    --text: #14213d;
+    --muted: #718096;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #f8fafc;
+    color: var(--text);
+}
+
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.welcome-panel {
+    width: 52%;
+    padding: 45px 65px;
+    background:
+        radial-gradient(circle at 85% 75%, #1d4ed8 0%, transparent 40%),
+        linear-gradient(145deg, #071b3b, #0b2c60);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #3b82f6;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+.brand h1 {
+    font-size: 25px;
+    letter-spacing: -1px;
+}
+
+.tag, .login-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #93c5fd;
+}
+
+.welcome-content h2 {
+    margin-top: 22px;
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 1.15;
+    letter-spacing: -2px;
+}
+
+.welcome-content h2 span {
+    color: #60a5fa;
+}
+
+.welcome-content > p {
+    margin-top: 22px;
+    color: #b8c8df;
+    max-width: 390px;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.virtual-card {
+    width: min(100%, 355px);
+    margin-top: 40px;
+    padding: 26px;
+    border: 1px solid #ffffff40;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ffffff35, #ffffff0a);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px #00000030;
+    transform: rotate(-4deg);
+}
+
+.card-top, .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-top span, .card-bottom span {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.card-chip {
+    margin-top: 25px;
+    font-size: 30px;
+    color: #facc15;
+}
+
+.card-number {
+    margin: 18px 0;
+    letter-spacing: 3px;
+    font-size: 18px;
+}
+
+.welcome-footer {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.login-panel {
+    width: 48%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background: white;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 410px;
+}
+
+.login-tag {
+    color: var(--primary);
+}
+
+.login-box h2 {
+    margin-top: 14px;
+    font-size: 34px;
+    letter-spacing: -1px;
+}
+
+.login-subtitle {
+    color: var(--muted);
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+form {
+    margin-top: 38px;
+}
+
+.form-group {
+    margin-bottom: 23px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    height: 52px;
+    padding: 0 15px;
+    border: 1px solid #dce3ed;
+    border-radius: 10px;
+    outline: none;
+    font: inherit;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px #2563eb15;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 90px;
+}
+
+.password-wrapper button {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.login-button {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: 0.2s;
+}
+
+.login-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px #2563eb30;
+}
+
+#formMessage {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #64748b;
+    text-align: center;
+}
+
+.login-bottom {
+    margin-top: 65px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.login-bottom span {
+    display: block;
+    margin-top: 8px;
+    color: #2563eb;
+}
+
+.mobile-brand {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .welcome-panel {
+        display: none;
+    }
+
+    .login-panel {
+        width: 100%;
+        min-height: 100vh;
+        padding: 30px 22px;
+    }
+
+    .mobile-brand {
+        display: block;
+        margin-bottom: 45px;
+        color: var(--primary);
+        font-size: 26px;
+        font-weight: 800;
+    }
+
+    .login-box h2 {
+        font-size: 29px;
+    }
+
+    .login-bottom {
+        margin-top: 45px;
+    }
+}
+
+/* =====================================
+   NUVEMPAY - DASHBOARD
+===================================== */
+
+.dashboard-body {
+    background: #f4f7fc;
+    color: #14213d;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENU LATERAL */
+
+.sidebar {
+    width: 265px;
+    min-height: 100vh;
+    background: #0b1e40;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 12px 40px;
+}
+
+.logo-square {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    background: #3478f6;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 23px;
+}
+
+.sidebar-logo h2 {
+    font-size: 22px;
+    letter-spacing: -1px;
+}
+
+.sidebar-label {
+    color: #6885ad;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    padding: 0 15px;
+    margin-bottom: 20px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-link {
+    color: #9db1d0;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.nav-link i {
+    width: 20px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #1b3968;
+    color: white;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 5px;
+    border-top: 1px solid #ffffff20;
+}
+
+.avatar,
+.header-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #3478f6;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.sidebar-user strong {
+    display: block;
+    font-size: 12px;
+}
+
+.sidebar-user small {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    color: #91a6c6;
+}
+
+.sidebar-bottom form {
+    margin: 0;
+}
+
+.logout-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background: #ffffff10;
+    color: #c7d5eb;
+    text-align: left;
+    cursor: pointer;
+}
+
+.logout-button i {
+    margin-right: 12px;
+}
+
+.logout-button:hover {
+    background: #ffffff20;
+}
+
+/* CONTEÚDO */
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    padding: 40px 55px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.header-label {
+    color: #2563eb;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.dashboard-header h1 {
+    font-size: 30px;
+    margin-top: 8px;
+}
+
+.dashboard-header p {
+    color: #8491a5;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.greeting {
+    margin-bottom: 25px;
+}
+
+.greeting h2 {
+    font-size: 23px;
+}
+
+.greeting p {
+    color: #8491a5;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* CARTÃO DE SALDO */
+
+.balance-card {
+    padding: 35px;
+    background:
+        radial-gradient(circle at 90% 80%, #2563eb, transparent 45%),
+        linear-gradient(120deg, #0b1e40, #12376d);
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 15px 35px #0b1e4020;
+}
+
+.balance-top,
+.balance-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.balance-top {
+    font-size: 14px;
+    color: #c7d8ef;
+}
+
+.balance-top i {
+    margin-right: 10px;
+}
+
+.balance-badge {
+    font-size: 10px;
+    letter-spacing: 1px;
+    background: #ffffff20;
+    padding: 9px 12px;
+    border-radius: 30px;
+}
+
+.balance-card h2 {
+    font-size: clamp(32px, 4vw, 45px);
+    margin: 25px 0 10px;
+}
+
+.balance-card > p {
+    color: #a7bedf;
+    font-size: 12px;
+}
+
+.balance-bottom {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid #ffffff25;
+    color: #b7cbea;
+    font-size: 12px;
+}
+
+/* AÇÕES */
+
+.quick-actions,
+.transactions-panel,
+.account-panel {
+    margin-top: 35px;
+}
+
+.section-heading h3 {
+    font-size: 19px;
+}
+
+.section-heading p {
+    color: #8491a5;
+    margin-top: 7px;
+    font-size: 13px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 22px;
+}
+
+.action-card {
+    background: white;
+    border: 1px solid #e9edf5;
+    border-radius: 15px;
+    padding: 25px;
+    transition: .2s;
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px #102b5510;
+}
+
+.action-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 19px;
+}
+
+.action-icon.blue {
+    background: #e9f0ff;
+    color: #2563eb;
+}
+
+.action-icon.purple {
+    background: #f0eaff;
+    color: #7c3aed;
+}
+
+.action-icon.green {
+    background: #e4f9ef;
+    color: #059669;
+}
+
+.action-card h4 {
+    font-size: 15px;
+}
+
+.action-card p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #8491a5;
+    margin-top: 10px;
+    min-height: 42px;
+}
+
+.action-card span {
+    display: block;
+    color: #2563eb;
+    font-size: 11px;
+    margin-top: 18px;
+    font-weight: 600;
+}
+
+/* HISTÓRICO */
+
+.transactions-panel,
+.account-panel {
+    background: white;
+    padding: 30px;
+    border: 1px solid #e9edf5;
+    border-radius: 15px;
+}
+
+.empty-transactions {
+    text-align: center;
+    padding: 45px 15px;
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    background: #f1f5fb;
+    color: #94a3b8;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 20px;
+    font-size: 23px;
+}
+
+.empty-transactions h4 {
+    font-size: 15px;
+}
+
+.empty-transactions p {
+    margin: 10px auto 0;
+    max-width: 340px;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* MINHA CONTA */
+
+.account-details {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.account-details span {
+    display: block;
+    color: #8491a5;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.account-details strong {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.dashboard-footer {
+    margin-top: 35px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1050px) {
+    .dashboard-main {
+        padding: 30px;
+    }
+
+    .actions-grid {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 760px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        padding: 15px;
+    }
+
+    .sidebar-logo {
+        padding: 5px 0 15px;
+    }
+
+    .sidebar-label {
+        display: none;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .nav-link {
+        white-space: nowrap;
+        padding: 12px;
+    }
+
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .dashboard-main {
+        padding: 25px 18px;
+    }
+
+    .header-user {
+        display: none;
+    }
+
+    .actions-grid,
+    .account-details {
+        grid-template-columns: 1fr;
+    }
+
+    .balance-card {
+        padding: 25px;
+    }
+
+    .balance-badge {
+        display: none;
+    }
+}
+
+/* TRANSFERÊNCIAS */
+
+.transfer-form {
+    margin-top: 25px;
+    max-width: 550px;
+}
+
+.transfer-form select,
+.transfer-form input {
+    width: 100%;
+    height: 52px;
+    padding: 0 15px;
+    border: 1px solid #dce3ed;
+    border-radius: 10px;
+    background: white;
+    font: inherit;
+    font-size: 14px;
+}
+
+.transfer-form select:focus,
+.transfer-form input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px #2563eb15;
+}
+
+.transfer-alert {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 13px;
+}
+
+/* EXTRATO */
+
+.transaction-list {
+    margin-top: 25px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    border-bottom: 1px solid #edf1f7;
+}
+
+.transaction-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.transaction-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    background: #eef4ff;
+    color: #2563eb;
+    border-radius: 12px;
+}
+
+.transaction-info strong {
+    display: block;
+    font-size: 13px;
+}
+
+.transaction-info small {
+    display: block;
+    margin-top: 6px;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.money-out {
+    color: #dc2626;
+}
+
+.money-in {
+    color: #059669;
+}
+
+@media (max-width: 600px) {
+    .transaction-item {
+        align-items: flex-start;
+    }
+
+    .transaction-item > strong {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}

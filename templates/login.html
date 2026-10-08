@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NuvemPay | Entrar</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script
+        src="{{ url_for('static', filename='js/script.js') }}"
+        defer>
+    </script>
+</head>
+
+<body>
+
+<main class="login-container">
+
+    <!-- PAINEL ESQUERDO -->
+    <section class="welcome-panel">
+
+        <div class="brand">
+            <span class="brand-icon">N</span>
+            <h1>NuvemPay</h1>
+        </div>
+
+        <div class="welcome-content">
+
+            <span class="tag">
+                PLATAFORMA DIGITAL
+            </span>
+
+            <h2>
+                Seu dinheiro.<br>
+                Seu controle.<br>
+                <span>Seu futuro.</span>
+            </h2>
+
+            <p>
+                Uma nova experiência em pagamentos
+                digitais. Simples, moderna e segura.
+            </p>
+
+            <!-- CARTÃO VIRTUAL -->
+            <div class="virtual-card">
+
+                <div class="card-top">
+                    <strong>NuvemPay</strong>
+                    <span>VIRTUAL</span>
+                </div>
+
+                <div class="card-chip">▦</div>
+
+                <div class="card-number">
+                    •••• •••• •••• 2026
+                </div>
+
+                <div class="card-bottom">
+                    <span>CONTA DEMONSTRAÇÃO</span>
+                    <strong>NP</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="welcome-footer">
+            © 2026 NuvemPay — Projeto Acadêmico
+        </p>
+
+    </section>
+
+
+    <!-- PAINEL DIREITO -->
+    <section class="login-panel">
+
+        <div class="login-box">
+
+            <div class="mobile-brand">
+                NuvemPay
+            </div>
+
+            <span class="login-tag">
+                BEM-VINDO DE VOLTA
+            </span>
+
+            <h2>Acesse sua conta</h2>
+
+            <p class="login-subtitle">
+                Entre com suas credenciais para continuar.
+            </p>
+
+            <!-- FORMULÁRIO -->
+            <form
+                id="loginForm"
+                method="POST"
+                action="{{ url_for('login') }}"
+            >
+
+                <!-- PROTEÇÃO CSRF -->
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <!-- E-MAIL -->
+                <div class="form-group">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="seuemail@exemplo.com"
+                        autocomplete="username"
+                        maxlength="254"
+                        required
+                    >
+
+                </div>
+
+                <!-- SENHA -->
+                <div class="form-group">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            aria-label="Mostrar senha"
+                        >
+                            Mostrar
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- OPÇÕES -->
+                <div class="form-options">
+
+                    <label class="remember">
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+                        Lembrar e-mail
+                    </label>
+
+                </div>
+
+                <!-- BOTÃO DE LOGIN -->
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Entrar na minha conta
+                    <span>→</span>
+                </button>
+
+                <!-- MENSAGENS DO FLASK -->
+                {% with mensagens = get_flashed_messages() %}
+                    {% if mensagens %}
+                        <p id="formMessage" role="alert">
+                            {{ mensagens[0] }}
+                        </p>
+                    {% endif %}
+                {% endwith %}
+
+            </form>
+
+            <div class="login-bottom">
+                <p>
+                    Ambiente de demonstração acadêmica
+                </p>
+                <span>
+                    Transações 100% fictícias
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
