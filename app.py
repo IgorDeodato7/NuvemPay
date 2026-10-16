@@ -20,6 +20,8 @@ from flask import (
 from werkzeug.security import check_password_hash
 
 from database import conectar, criar_banco
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 
 # ==========================================
@@ -44,13 +46,36 @@ if not app.secret_key:
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Lax",
-    SESSION_COOKIE_SECURE=os.environ.get(
-        "FLASK_ENV"
-    ) == "production"
+    SESSION_COOKIE_SECURE=os.environ.get("COOKIE_SECURE", "1") == "1",
+    PERMANENT_SESSION_LIFETIME=1800
 )
 
 # Inicializa o banco de dados
 criar_banco()
+
+limiter = Limiter(get_remote_address, app=app, default_limits=[], storage_uri=os.environ.get("RATELIMIT_STORAGE_URI", "memory://"))
+
+@app.after_request
+def cabecalhos_seguranca(resposta):
+    resposta.headers["X-Content-Type-Options"] = "nosniff"
+    resposta.headers["X-Frame-Options"] = "DENY"
+    resposta.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    resposta.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "frame-ancestors 'none'; "
+        "form-action 'self'; "
+        "style-src 'self' 'unsafe-inline' "
+        "https://cdnjs.cloudflare.com "
+        "https://fonts.googleapis.com; "
+        "font-src 'self' "
+        "https://cdnjs.cloudflare.com "
+        "https://fonts.gstatic.com; "
+        "script-src 'self'; "
+        "img-src 'self' data:;"
+    )
+    return resposta
 
 
 # ==========================================
@@ -132,6 +157,7 @@ app.jinja_env.filters["moeda"] = formatar_moeda
 # ==========================================
 
 @app.route("/", methods=["GET", "POST"])
+@limiter.limit("5 per minute", methods=["POST"])
 def login():
 
     if "usuario_id" in session:
@@ -153,7 +179,7 @@ def login():
                 """
                 SELECT *
                 FROM usuarios
-                WHERE email = ?
+                WHERE email = %s
                 """,
                 (email,)
             ).fetchone()
@@ -194,7 +220,7 @@ def dashboard():
                 email,
                 saldo_centavos
             FROM usuarios
-            WHERE id = ?
+            WHERE id = %s
             """,
             (session["usuario_id"],)
         ).fetchone()
@@ -210,7 +236,7 @@ def dashboard():
             """
             SELECT id, nome, email
             FROM usuarios
-            WHERE id != ?
+            WHERE id != %s
             ORDER BY nome
             """,
             (usuario["id"],)
@@ -236,8 +262,8 @@ def dashboard():
             JOIN usuarios d
                 ON d.id = t.destinatario_id
 
-            WHERE t.remetente_id = ?
-               OR t.destinatario_id = ?
+            WHERE t.remetente_id = %s
+               OR t.destinatario_id = %s
 
             ORDER BY t.id DESC
 
@@ -330,14 +356,14 @@ def transferir():
     try:
 
         # Inicia transação atômica
-        banco.execute("BEGIN IMMEDIATE")
+        # psycopg abre uma transação automaticamente na primeira operação.
 
         # Verifica destinatário
         destinatario = banco.execute(
             """
             SELECT id
             FROM usuarios
-            WHERE id = ?
+            WHERE id = %s
             """,
             (destinatario_id,)
         ).fetchone()
@@ -351,9 +377,9 @@ def transferir():
         resultado = banco.execute(
             """
             UPDATE usuarios
-            SET saldo_centavos = saldo_centavos - ?
-            WHERE id = ?
-              AND saldo_centavos >= ?
+            SET saldo_centavos = saldo_centavos - %s
+            WHERE id = %s
+              AND saldo_centavos >= %s
             """,
             (
                 valor_centavos,
@@ -372,8 +398,8 @@ def transferir():
         resultado_destino = banco.execute(
             """
             UPDATE usuarios
-            SET saldo_centavos = saldo_centavos + ?
-            WHERE id = ?
+            SET saldo_centavos = saldo_centavos + %s
+            WHERE id = %s
             """,
             (
                 valor_centavos,
@@ -394,7 +420,7 @@ def transferir():
                 destinatario_id,
                 valor_centavos
             )
-            VALUES (?, ?, ?)
+            VALUES (%s, %s, %s)
             """,
             (
                 remetente_id,

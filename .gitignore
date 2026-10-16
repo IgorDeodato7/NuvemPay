@@ -22,3 +22,6 @@ __pycache__/
 
 # Arquivos temporários
 *.log
+
+# Credenciais privadas geradas localmente
+credenciais_demo*.txt
